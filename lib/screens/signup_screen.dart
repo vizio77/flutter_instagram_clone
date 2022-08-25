@@ -3,22 +3,26 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/widgets/text_field_input.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _bioController.dispose();
+    _usernameController.dispose();
   }
 
   @override
@@ -40,6 +44,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 64,
               ),
               const SizedBox(height: 64),
+              //lt inserisco quì un widget circular per inserire l'avatar
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    radius: 64,
+                    backgroundImage: NetworkImage(
+                        "https://images.unsplash.com/photo-1661435805424-8eac4e3cc924?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"),
+                  ),
+                  Positioned(
+                      bottom: -10,
+                      left: 80,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.add_a_photo),
+                      ))
+                ],
+              ),
+              const SizedBox(height: 24),
+              //text field username
+              TextFieldInput(
+                textEditingController: _usernameController,
+                hintText: "Enter Your UserName",
+                textInputType: TextInputType.text,
+              ),
+              const SizedBox(height: 24),
               //text field
               TextFieldInput(
                 textEditingController: _emailController,
@@ -52,6 +81,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: "Enter Your Password",
                 textInputType: TextInputType.text,
                 isPass: true,
+              ),
+              const SizedBox(height: 24),
+              //text field username
+              TextFieldInput(
+                textEditingController: _bioController,
+                hintText: "Enter Your Bio",
+                textInputType: TextInputType.text,
               ),
               const SizedBox(height: 24),
               //inkwell è un area cliccabile
