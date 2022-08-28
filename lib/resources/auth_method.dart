@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_flutter/models/user.dart' as model;
 import 'package:instagram_flutter/resources/storage_methods.dart';
 
 class AuthMethod {
@@ -30,19 +31,31 @@ class AuthMethod {
         print(cred.user!.uid);
 
         //prima di creare l'utente devo vedere se riesco a fare l'upload del file
-        String pohtoUrl = await StorageMethods()
+        String photoUrl = await StorageMethods()
             .uploadImateToStorage("profilePics", file, false);
 
         //lo aggiungo al database
-        _firestore.collection('users').doc(cred.user!.uid).set({
+
+        model.User user = model.User(
+            username: username,
+            uid: cred.user!.uid,
+            email: email,
+            bio: bio,
+            followers: [],
+            following: [],
+            photoUrl: photoUrl);
+
+        _firestore.collection('users').doc(cred.user!.uid).set(user.toJson());
+
+        /* _firestore.collection('users').doc(cred.user!.uid).set({
           'username': username,
           'uid': cred.user!.uid,
           'email': email,
           'bio': bio,
           'followers': [],
           'following': [],
-          'photoUrl': pohtoUrl
-        });
+          'photoUrl': photoUrl
+        }); */
         //stesso metodo ma in questo caso è firbase che assegna l'id automaticamente ma attenzione che non è la uid
         // _firestore.collection('users').add({
         //   'username': username,
