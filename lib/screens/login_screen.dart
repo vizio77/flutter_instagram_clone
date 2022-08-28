@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_flutter/resources/auth_method.dart';
+import 'package:instagram_flutter/screens/home_screen.dart';
+import 'package:instagram_flutter/screens/signup_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 import 'package:instagram_flutter/widgets/text_field_input.dart';
+
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_Screen_layout.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -32,14 +38,32 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text, email: _emailController.text);
 
     if (res == "success") {
-      //
+      //navigo sulla home
       print("Login Success");
+      /* Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: ((context) => const HomeScreen()))); */
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const ResponsiveLayout(
+                mobileScreenLayout: MobileScreenLayout(),
+                webScreenLayout: WebScreenLayout(),
+              )),
+        ),
+      );
     } else {
       showSnackBar(res, context);
     }
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void navigateToSignup() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: ((context) => const SignupScreen()),
+      ),
+    );
   }
 
   @override
@@ -111,9 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(
-                    onTap: (() {
-                      print("toccato");
-                    }),
+                    onTap: navigateToSignup,
                     child: Container(
                       child: const Text(
                         "Sign up.",
