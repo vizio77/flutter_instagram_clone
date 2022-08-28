@@ -46,6 +46,10 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void signUpUser() async {
+    if (_image == null) {
+      showSnackBar("Add Image on Avatar", context);
+      return;
+    }
     setState(() {
       _isLoading = true;
     });
@@ -60,7 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
       showSnackBar(res, context);
     } else {
       //navigo alla home controllando se è mobile o web
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: ((context) => const ResponsiveLayout(
                 mobileScreenLayout: MobileScreenLayout(),
@@ -184,7 +188,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: const Text("Don't have an account?  "),
+                    child: const Text("Return to login press?  "),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(

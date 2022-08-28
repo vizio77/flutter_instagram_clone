@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print("Login Success");
       /* Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: ((context) => const HomeScreen()))); */
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: ((context) => const ResponsiveLayout(
                 mobileScreenLayout: MobileScreenLayout(),
