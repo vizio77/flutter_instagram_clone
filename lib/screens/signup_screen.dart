@@ -57,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
         email: _emailController.text,
         password: _passwordController.text,
         username: _usernameController.text,
-        bio: _usernameController.text,
+        bio: _bioController.text,
         file: _image!);
 
     if (res != 'success') {

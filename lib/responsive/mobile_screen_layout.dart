@@ -23,7 +23,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     return Scaffold(
       body: Center(
         //child: Text(username),
-        child: Text(user.username),
+        child: Text(user.bio),
       ),
     );
   }
