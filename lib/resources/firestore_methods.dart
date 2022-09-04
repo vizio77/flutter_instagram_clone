@@ -10,7 +10,7 @@ class FirestoreMethods {
 
   //upload post
   Future<String> uploadPost(String description, Uint8List file, String uid,
-      String username, String postUrl, String profileImage) async {
+      String username, String profImage) async {
     String res = "Some error occurred";
 
     try {
@@ -22,17 +22,17 @@ class FirestoreMethods {
         description: description,
         uid: uid,
         username: username,
+        likes: [],
         postId: postId,
         datePublished: DateTime.now(),
-        postUrl: postUrl,
-        profileImage: profileImage,
-        likes: [],
+        postUrl: photoUrl,
+        profImage: profImage,
       );
 
       _firestore.collection("posts").doc(postId).set(
             post.toJson(),
           );
-      res = "siccess";
+      res = "success";
     } catch (err) {
       res = err.toString();
     }
